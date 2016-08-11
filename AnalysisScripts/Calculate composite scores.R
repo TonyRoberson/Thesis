@@ -1,5 +1,3 @@
-
-
 ## Load relevant packages
 library(plyr)
 library(dplyr)
@@ -7,7 +5,7 @@ library(tidyr)
 library(car)
 library(psych)
 
-#Calculate composite scores for SIBS and SEBS
+## Calculate composite scores for SIBS and SEBS
 thesis <- mutate(thesis,
                  sebs_total = sebs_defiantOppositional + sebs_fightsArgues + 
                               sebs_bulliesOthers + sebs_easilyAngry + 
