@@ -7,7 +7,7 @@ library('car')
 
 
 
-################### SIBS/SEBS AND SWTRS COMPARISON ##########################
+################### SIBS/SEBS AND SWTRS COMPARISON ####################
 
 
 
@@ -46,7 +46,8 @@ anova(mathPerformance1_fixedIntercept, mathPerformance1b_randomIntercept)
 
 #Add SIBS and SEBS predictors
 
-mathPerformance2_addSIBS.SEBS <- gls(model = mathPerformance ~ sibs_total_GrpCentered + sebs_total_GrpCentered, 
+mathPerformance2_addSIBS.SEBS <- gls(model = mathPerformance ~ 
+                                       sibs_total_GrpCentered + sebs_total_GrpCentered, 
                               data = thesis,
                               method = "ML")
 qqnorm(resid(mathPerformance2_addSIBS.SEBS))
@@ -58,7 +59,8 @@ anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS)
 #Add ENGAGMENT and SOCIAL (SWTRS) predictors
 
 mathPerformance2b_addSWTRS <- gls(model = mathPerformance ~ 
-                             sibs_total_GrpCentered + sebs_total_GrpCentered + swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered, 
+                                    sibs_total_GrpCentered + sebs_total_GrpCentered + 
+                                    swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered, 
                            data = thesis, 
                            method = "ML")
 qqnorm(resid(mathPerformance2b_addSWTRS))
@@ -66,17 +68,32 @@ summary(mathPerformance2b_addSWTRS)
 anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, mathPerformance2b_addSWTRS)
 
 
+# Test alt fixed effect order
+# Add SWTRS
+
+mathPerf2alt_addSWTRS <- gls(model = mathPerformance ~
+                              swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered, 
+                             data = thesis, 
+                             method = "ML")
+qqnorm(resid(mathPerf2alt_addSWTRS))
+summary(mathPerf2alt_addSWTRS)
+anova(mathPerformance1_fixedIntercept, mathPerf2alt_addSWTRS, mathPerformance2b_addSWTRS)
+
+
 #Add level-2 group means for each level-1 predictor
 #Non-significant
 
 mathPerformance2c_addGroupMeans <- gls(model =  mathPerformance ~ 
-                                  sibs_total_GrpCentered + sebs_total_GrpCentered + swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered +
-                                  sibs_total_mean + sebs_total_mean + swtrs.social_total_mean + swtrs.engagement_total_mean, 
+                                        sibs_total_GrpCentered + sebs_total_GrpCentered + 
+                                        swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered +
+                                        sibs_total_mean + sebs_total_mean + 
+                                        swtrs.social_total_mean + swtrs.engagement_total_mean, 
                                 data = thesis, 
                                 method = "ML")
 qqnorm(resid(mathPerformance2c_addGroupMeans))
 summary(mathPerformance2c_addGroupMeans)
-anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, mathPerformance2b_addSWTRS, mathPerformance2c_addGroupMeans)
+anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, 
+      mathPerformance2b_addSWTRS, mathPerformance2c_addGroupMeans)
 
 
 
@@ -88,28 +105,32 @@ anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, mathPerfor
 #Non-significant
 
 mathPerformance3_addRandSIBS <- lme(fixed = mathPerformance ~ 
-                               sibs_total_GrpCentered + sebs_total_GrpCentered + swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered, 
+                                     sibs_total_GrpCentered + sebs_total_GrpCentered + 
+                                     swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered, 
                              data = thesis,
                              random = ~0 + sibs_total_GrpCentered|classID,
                              method = "ML",
                              control = list(maxIter = 100, opt = "optim"))
 qqnorm(resid(mathPerformance3_addRandSIBS))
 summary(mathPerformance3_addRandSIBS)
-anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, mathPerformance2b_addSWTRS, mathPerformance3_addRandSIBS)
+anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, 
+      mathPerformance2b_addSWTRS, mathPerformance3_addRandSIBS)
 
 
 #Test random slopes for SEBS
 #Non-significant
 
 mathPerformance3b_addRandSEBS <- lme(fixed = mathPerformance ~ 
-                                sibs_total_GrpCentered + sebs_total_GrpCentered + swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered,
+                                      sibs_total_GrpCentered + sebs_total_GrpCentered + 
+                                      swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered,
                               data = thesis,
                               random = ~0 + sebs_total_GrpCentered|classID,
                               method = "ML", 
                               control = list(maxIter = 100, opt = "optim"))
 qqnorm(resid(mathPerformance3b_addRandSEBS))
 summary(mathPerformance3b_addRandSEBS)
-anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, mathPerformance2b_addSWTRS, mathPerformance3b_addRandSEBS)
+anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, 
+      mathPerformance2b_addSWTRS, mathPerformance3b_addRandSEBS)
 
 
 ##PREFERRED RANDOM COEFFICENT MODEL
@@ -117,28 +138,32 @@ anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, mathPerfor
 #Significant
 
 mathPerformance3c_addRandENGAGEMENT <- lme(fixed = mathPerformance ~ 
-                                      sibs_total_GrpCentered + sebs_total_GrpCentered + swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered, 
+                                            sibs_total_GrpCentered + sebs_total_GrpCentered + 
+                                            swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered, 
                                     data = thesis,
                                     random = ~0 + swtrs.engagement_total_GrpCentered|classID,
                                     method = "ML", 
                                     control = list(maxIter = 100, opt = "optim"))
 qqnorm(resid(mathPerformance3c_addRandENGAGEMENT))
 summary(mathPerformance3c_addRandENGAGEMENT)
-anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, mathPerformance2b_addSWTRS, mathPerformance3c_addRandENGAGEMENT)
+anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, 
+      mathPerformance2b_addSWTRS, mathPerformance3c_addRandENGAGEMENT)
 
 
 #Test random slopes for SOCIAL
 #Non-significant
 
 mathPerformance3d_addRandSOCIAL <- lme(fixed = mathPerformance ~ 
-                                  sibs_total_GrpCentered + sebs_total_GrpCentered + swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered, 
+                                        sibs_total_GrpCentered + sebs_total_GrpCentered + 
+                                        swtrs.social_total_GrpCentered + swtrs.engagement_total_GrpCentered, 
                                 data = thesis, 
                                 random = ~0 + swtrs.social_total_GrpCentered|classID, 
                                 method = "ML", 
                                 control = list(maxIter = 100, opt = "optim"))
 qqnorm(resid(mathPerformance3d_addRandSOCIAL))
 summary(mathPerformance3d_addRandSOCIAL)
-anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, mathPerformance2b_addSWTRS, mathPerformance3d_addRandSOCIAL)
+anova(mathPerformance1_fixedIntercept, mathPerformance2_addSIBS.SEBS, 
+      mathPerformance2b_addSWTRS, mathPerformance3d_addRandSOCIAL)
 
 
 
@@ -167,11 +192,12 @@ anova(mathPerformance1_fixedIntercept, mathPerformance4_reducedModel)
 #Test model with ENGAGMENT and SOCIAL as only level-1 predictors
 #Significant compared to random intercept model
 
-mathPerformance5_SWTRSonly <- lme(fixed = mathPerformance ~ swtrs.engagement_total_GrpCentered + swtrs.social_total_GrpCentered, 
-                                     data = thesis,
-                                     random = ~0 + swtrs.engagement_total_GrpCentered|classID,
-                                     method = "ML", 
-                                     control = list(maxIter = 100, opt = "optim"))
+mathPerformance5_SWTRSonly <- lme(fixed = mathPerformance ~ 
+                                   swtrs.engagement_total_GrpCentered + swtrs.social_total_GrpCentered, 
+                                  data = thesis,
+                                  random = ~0 + swtrs.engagement_total_GrpCentered|classID,
+                                  method = "ML", 
+                                  control = list(maxIter = 100, opt = "optim"))
 qqnorm(resid(mathPerformance5_SWTRSonly))
 summary(mathPerformance5_SWTRSonly)
 anova(mathPerformance1_fixedIntercept, mathPerformance5_SWTRSonly)
@@ -180,12 +206,13 @@ anova(mathPerformance1_fixedIntercept, mathPerformance5_SWTRSonly)
 #Test addition of level-2 means
 #Non-significant improvement
 
-mathPerformance5b_SWTRSonly <- lme(fixed = mathPerformance ~ swtrs.engagement_total_GrpCentered + swtrs.social_total_GrpCentered +
+mathPerformance5b_SWTRSonly <- lme(fixed = mathPerformance ~ 
+                                    swtrs.engagement_total_GrpCentered + swtrs.social_total_GrpCentered +
                                     swtrs.social_total_mean + swtrs.engagement_total_mean, 
-                                  data = thesis,
-                                  random = ~0 + swtrs.engagement_total_GrpCentered|classID,
-                                  method = "ML", 
-                                  control = list(maxIter = 100, opt = "optim"))
+                                   data = thesis,
+                                   random = ~0 + swtrs.engagement_total_GrpCentered|classID,
+                                   method = "ML", 
+                                   control = list(maxIter = 100, opt = "optim"))
 qqnorm(resid(mathPerformance5b_SWTRSonly))
 summary(mathPerformance5b_SWTRSonly)
 anova(mathPerformance1_fixedIntercept, mathPerformance5_SWTRSonly, mathPerformance5b_SWTRSonly)
