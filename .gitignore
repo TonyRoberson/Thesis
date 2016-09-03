@@ -2,9 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-
-# Ignore LaTeX compile byproduct files # 
-######################################## 
+# Ignore LaTeX compile byproduct files #
+########################################
 *.aux
 *.bbl
 *.blg
@@ -14,3 +13,5 @@ figure/*
 *.pdf
 *.gz
 *.tex
+packrat/lib*/
+.Rprofile
