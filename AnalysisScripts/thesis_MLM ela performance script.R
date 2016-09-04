@@ -183,7 +183,6 @@ anova(elaPerformance1_fixedIntercept, elaPerformance4_reducedModel)
 
 
 
-
 #### STEP 5: TEST CONCURRENT VALIDITY WITH SWTRS ONLY MODEL ####
 
 
