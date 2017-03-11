@@ -1,30 +1,58 @@
 ---
-title: "README"
-author: "Tony Roberson"
-date: "2/23/17"
-output: html_document
+Author: Tony Roberson
+Title: README
+Updated: 3/10/17
 ---
+### SWTRS
 
-The folder "Data" contains all raw and cleaned datasets in .csv
+The **Student Wellbeing Teacher Report Scales (SWTRS)** were developed by 
+Tony Roberson and Dr. Tyler Renshaw. These brief behavior rating scales are
+intended for use in universal mental health screening in schools for 
+the purposes of identifying student risk, targeting adaptive skill areas 
+for intervention, and progress monitoring.
 
-    - Raw:
-        - SWTRS_Student Behaviors (Responses) - Form Responses 1.csv
-        - SWTRS_Teacher Demographics (Responses) - Form Responses 1.csv
-    - Cleaned:
-        - thesis.csv 
+Early exploratory research using a relatively small K-5 elementary school 
+suggests the SWTRS item pool may be best described as measuring three
+substantive latent factors related to youth wellbeing at school from the
+perspective of the classroom teacher, each with strong internal consistency: 
+(a) academic engagement, (b) prosocial behavior, and (c) positive emotional
+experiences.
 
-The folder "AnalysisScripts" contains all R scripts
+These data also suggest responses to the SWTRS may be superior predictors of
+concurrent risk in (a) math and reading achievement, (b) time on-task during
+class, and (c) number of school absences compared to scores derived from brief
+teacher-reported measures of youth internalizing and externalizing problem
+behaviors—the Student Internalizing Behavior Screener and the Student
+Externalizing Behavior Screener.
 
-    - Preliminary cleaning and descriptives:
-        - thesis_DataCleaningScript.R
-        - thesis_SWTRS Item Checks.R
-        - thesis_descriptives.R
-    - Primary Analyses
-        - thesis_EFA.R
-        - thesis_MLM absences script.R
-        - thesis_MLM math performance script.R
-        - thesis_MLM ela performance script.R
-        - thesis_MLM TimeOnTask script.R
+### File Guide
+
+**The folder "Data" contains all raw and cleaned datasets in .csv**
+
+  *Raw*
+
+  - SWTRS_Student Behaviors (Responses) - Form Responses 1.csv
+  - SWTRS_Teacher Demographics (Responses) - Form Responses 1.csv
+
+  *Cleaned*
+  
+  - thesis.csv 
+
+**The folder "AnalysisScripts" contains all R scripts**
+
+  *Preliminary cleaning and descriptives*
+  
+  - thesis_DataCleaningScript.R
+  - thesis_SWTRS Item Checks.R
+  - thesis_descriptives.R
+    
+  *Primary Analyses*
+  
+  - thesis_EFA.R
+  - thesis_MLM absences script.R
+  - thesis_MLM math performance script.R
+  - thesis_MLM ela performance script.R
+  - thesis_MLM TimeOnTask script.R
         
   
 
