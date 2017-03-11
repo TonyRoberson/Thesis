@@ -29,24 +29,24 @@ Externalizing Behavior Screener.
 
 **The folder "Data" contains all raw and cleaned datasets in .csv**
 
-  *Raw*
+*Raw*
 
   - SWTRS_Student Behaviors (Responses) - Form Responses 1.csv
   - SWTRS_Teacher Demographics (Responses) - Form Responses 1.csv
 
-  *Cleaned*
+*Cleaned*
   
   - thesis.csv 
 
 **The folder "AnalysisScripts" contains all R scripts**
 
-  *Preliminary cleaning and descriptives*
+*Preliminary cleaning and descriptives*
   
   - thesis_DataCleaningScript.R
   - thesis_SWTRS Item Checks.R
   - thesis_descriptives.R
     
-  *Primary Analyses*
+*Primary Analyses*
   
   - thesis_EFA.R
   - thesis_MLM absences script.R
